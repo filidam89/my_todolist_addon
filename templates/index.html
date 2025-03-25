@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TodoList Addon</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>TodoList</h1>
+    <p>Punti Persona A: {{ punti_A }} | Persona B: {{ punti_B }} | Differenza: {{ differenza }}</p>
+  </header>
+  <section id="tasks">
+    <h2>Task in attesa</h2>
+    <ul>
+      {% for task in tasks %}
+      <li>
+        <strong>{{ task.titolo }}</strong> - {{ task.descrizione }}<br>
+        Frequenza: {{ task.frequenza }}, Punteggio: {{ task.punteggio }}<br>
+        Assegnato a: {{ task.assegnato_a }}
+        <!-- Form per confermare o modificare assegnazione -->
+        <form action="{{ url_for('conferma_task', task_id=task.id) }}" method="POST">
+          <label>Conferma assegnazione:
+            <select name="confermato_da">
+              <option value="{{ task.assegnato_a }}">{{ task.assegnato_a }}</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="AB">Entrambe</option>
+            </select>
+          </label>
+          <button type="submit">Conferma</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  
+  <section id="nuovo-task">
+    <h2>Aggiungi nuovo task</h2>
+    <form action="{{ url_for('aggiungi_task') }}" method="POST">
+      <input type="text" name="titolo" placeholder="Titolo" required>
+      <textarea name="descrizione" placeholder="Descrizione"></textarea>
+      <input type="text" name="frequenza" placeholder="Frequenza (es. giornaliero)" required>
+      <input type="number" name="punteggio" placeholder="Punteggio" required>
+      <label>Assegnato a:
+        <select name="assegnato_a">
+          <option value="A">Persona A</option>
+          <option value="B">Persona B</option>
+          <option value="AB">Entrambe</option>
+        </select>
+      </label>
+      <button type="submit">Aggiungi</button>
+    </form>
+  </section>
+  
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "TodoList Addon",
+  "version": "1.0",
+  "slug": "todolist_addon",
+  "description": "Addon per la gestione di task ripetibili, con assegnazione e punteggi per persona A e B.",
+  "startup": "services",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "boot": "auto",
+  "options": {},
+  "schema": {}
+}
